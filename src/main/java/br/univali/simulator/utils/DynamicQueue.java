@@ -1,2 +1,5 @@
-package br.univali.simulator.utils;public class DynamicQueue {
+package br.univali.simulator.utils;
+
+public class DynamicQueue {
+
 }

@@ -1,4 +1,4 @@
-package br.univali.simulator.utils;
+package br.univali.simulator.utils.list;
 
 public class LinkedListNode<T> {
     private LinkedListNode next;

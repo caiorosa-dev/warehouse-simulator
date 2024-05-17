@@ -1,2 +1,5 @@
-package br.univali.simulator.utils;public class LinkedList {
+package br.univali.simulator.utils;
+
+public class LinkedList {
+
 }

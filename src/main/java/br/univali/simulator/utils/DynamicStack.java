@@ -1,2 +1,5 @@
-package br.univali.simulator.utils;public class DynamicStack {
+package br.univali.simulator.utils;
+
+public class DynamicStack {
+
 }
