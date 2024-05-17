@@ -1,4 +1,6 @@
-package com.caiorosadev.simulator;
+package br.univali.simulator;
+
+import br.univali.simulator.utils.DynamicQueue;
 
 public class Main {
     public static void main(String[] args) {
