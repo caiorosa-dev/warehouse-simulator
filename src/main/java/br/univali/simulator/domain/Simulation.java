@@ -1,11 +1,9 @@
 package br.univali.simulator.domain;
 
-import br.univali.simulator.domain.entities.Truck;
 import br.univali.simulator.domain.entities.Warehouse;
 import br.univali.simulator.domain.simulation.SimulationConfig;
 import br.univali.simulator.domain.simulation.SimulationLog;
 import br.univali.simulator.utils.LinkedList;
-
 
 public class Simulation {
     private final SimulationConfig config;
@@ -31,12 +29,13 @@ public class Simulation {
             return;
         }
 
-        Truck truck = warehouse.loadTruck();
+        warehouse.loadTruck();
     }
 
     public void processDay() {
         System.out.println("=---------------------------------------=");
         System.out.println("Processing day " + currentDay + "...");
+        warehouse.receiveSupplies(config.getDailySuppliesArriving(), config.getWeightOfSupplies());
         warehouse.arriveTrucks(config);
 
         currentHour = config.getStartHourOfDay();
@@ -46,6 +45,9 @@ public class Simulation {
         }
 
         System.out.println("Total weight in warehouse: " + warehouse.getTotalWeight());
+        if (warehouse.getTotalWeight() == 0) {
+            System.out.println("All the supplies were delivered, finishing operation.");
+        }
     }
 
     public void run() {

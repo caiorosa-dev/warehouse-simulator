@@ -3,6 +3,7 @@ package br.univali.simulator.domain.entities;
 import br.univali.simulator.domain.simulation.SimulationConfig;
 import br.univali.simulator.utils.DynamicQueue;
 import br.univali.simulator.utils.LinkedList;
+import lombok.var;
 
 public class Warehouse {
 	private final DynamicQueue<Truck> trucks;
@@ -53,7 +54,6 @@ public class Warehouse {
 			System.out.println("Storage with " + storage.getSupplies().size() + " supplies.");
 		}));
 		System.out.println("Warehouse initialized with " + storages.size() + " storages.");
-
 	}
 
 	public void arriveTrucks(SimulationConfig config) {
@@ -62,13 +62,42 @@ public class Warehouse {
 
 			trucks.enqueue(truckToBeEnqueued);
 		}
+
+		System.out.println("Arrived " + config.getDailyTrucks() + " trucks.");
 	}
 
-	public Truck loadTruck() {
+	private void moveSuppliesOnHoldToStorages() {
+		for (int i = 0; i < storages.size(); i++) {
+			Storage currentStorage = storages.get(i);
+
+			if (!currentStorage.canLoadSupply()) {
+				continue;
+			}
+
+			while (currentStorage.canLoadSupply() && !suppliesOnHold.isEmpty()) {
+				Supply supply = suppliesOnHold.dequeue();
+
+				currentStorage.loadSupply(supply);
+			}
+		}
+	}
+
+	public void receiveSupplies(int amount, float weightOfSupplies) {
+		for (int i = 0; i < amount; i++) {
+			var supply = new Supply(weightOfSupplies);
+
+			suppliesOnHold.enqueue(supply);
+		}
+
+		this.moveSuppliesOnHoldToStorages();
+		System.out.println("Received " + amount + " supplies.");
+	}
+
+	public void loadTruck() {
 		Truck currentTruck = trucks.dequeue();
 
-		if (currentTruck == null) {
-			return null;
+		if (currentTruck == null || !hasSupplies()) {
+			return;
 		}
 
 		storages.forEach((storage -> {
@@ -79,21 +108,30 @@ public class Warehouse {
 			}
 		}));
 
+		if (suppliesOnHold.size() > 0) {
+			this.moveSuppliesOnHoldToStorages();
+		}
 
-		System.out.println("Truck loaded with " + currentTruck.calculateTotalWeight() + "kg of supplies.");
-
-		return currentTruck;
+		System.out.println(currentTruck.getMessage());
 	}
 
 	public boolean hasTrucks() {
 		return trucks.size() != 0;
 	}
 
-	public boolean isEmpty() {
+	public boolean hasSupplies() {
 		for (int i = 0; i < storages.size(); i++) {
 			if (storages.get(i).hasSupplies()) {
-				return false;
+				return true;
 			}
+		}
+
+		return false;
+	}
+
+	public boolean isEmpty() {
+		if (hasSupplies()) {
+			return false;
 		}
 
 		return trucks.isEmpty() && suppliesOnHold.isEmpty();
