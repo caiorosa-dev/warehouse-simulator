@@ -38,4 +38,8 @@ public class DynamicQueue<T> {
 
         return data;
     }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
 }
