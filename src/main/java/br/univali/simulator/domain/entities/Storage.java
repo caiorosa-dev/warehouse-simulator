@@ -13,6 +13,14 @@ public class Storage {
 		this.maxSize = maxSize;
 	}
 
+	public float getTotalWeight() {
+		final float[] totalWeight = {0};
+
+		supplies.forEach(supply -> totalWeight[0] += supply.getWeight());
+
+		return totalWeight[0];
+	}
+
 	public Supply unloadSupply() {
 		Supply supply = supplies.pop();
 

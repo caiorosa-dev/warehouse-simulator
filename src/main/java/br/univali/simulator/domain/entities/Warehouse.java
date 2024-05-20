@@ -15,6 +15,16 @@ public class Warehouse {
 		suppliesOnHold = new DynamicQueue<>();
 	}
 
+	public float getTotalWeight() {
+		float totalWeight = 0;
+
+		for (int i = 0; i < storages.size(); i++) {
+			totalWeight += storages.get(i).getTotalWeight();
+		}
+
+		return totalWeight;
+	}
+
 	public void initStorages(SimulationConfig config) {
 		int suppliesToBeCreated = config.getInitialWarehouseStock();
 
@@ -57,8 +67,6 @@ public class Warehouse {
 	public Truck loadTruck() {
 		Truck currentTruck = trucks.dequeue();
 
-		System.out.println(currentTruck);
-
 		if (currentTruck == null) {
 			return null;
 		}
@@ -78,7 +86,7 @@ public class Warehouse {
 	}
 
 	public boolean hasTrucks() {
-		return !trucks.isEmpty();
+		return trucks.size() != 0;
 	}
 
 	public boolean isEmpty() {

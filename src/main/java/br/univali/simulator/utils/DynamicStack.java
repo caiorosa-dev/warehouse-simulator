@@ -25,7 +25,8 @@ public class DynamicStack<T> {
         }
 
         T value = top.getData();
-        top.setNext(top.getNext());
+
+        top = top.getNext();
 
         return value;
     }

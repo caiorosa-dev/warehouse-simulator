@@ -42,4 +42,16 @@ public class DynamicQueue<T> {
     public boolean isEmpty() {
         return head == null;
     }
+
+    public int size() {
+        int size = 0;
+        LinkedListNode<T> current = head;
+
+        while (current != null) {
+            size++;
+            current = current.getNext();
+        }
+
+        return size;
+    }
 }

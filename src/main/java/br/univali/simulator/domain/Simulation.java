@@ -38,18 +38,23 @@ public class Simulation {
         System.out.println("=---------------------------------------=");
         System.out.println("Processing day " + currentDay + "...");
         warehouse.arriveTrucks(config);
+
+        currentHour = config.getStartHourOfDay();
+        while (currentHour < config.getEndHourOfDay()) {
+            processHour();
+            currentHour++;
+        }
+
+        System.out.println("Total weight in warehouse: " + warehouse.getTotalWeight());
     }
 
     public void run() {
-        while (currentDay < 365 || warehouse.isEmpty()) {
-            processDay();
+        while (currentDay < 365 && !warehouse.isEmpty()) {
             currentDay++;
-            while (currentHour < config.getEndHourOfDay()) {
-                processHour();
-                currentHour++;
-            }
+            processDay();
         }
 
-        System.out.println("Simulation finished, currentDay: " + currentDay + ", currentHour: " + currentHour);
+        System.out.println("=---------------------------------------=");
+        System.out.println("Simulation finished, end day: " + currentDay);
     }
 }
