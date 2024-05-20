@@ -1,6 +1,6 @@
 package br.univali.simulator;
 
-import br.univali.simulator.utils.DynamicQueue;
+import br.univali.simulator.utils.LinkedList;
 
 public class Main {
     public static void main(String[] args) {

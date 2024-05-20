@@ -2,6 +2,8 @@ package br.univali.simulator.utils;
 
 import br.univali.simulator.utils.list.LinkedListNode;
 
+import java.util.function.Consumer;
+
 public class LinkedList<T> {
     private LinkedListNode<T> head;
 
@@ -85,6 +87,15 @@ public class LinkedList<T> {
         }
 
         return size;
+    }
+
+    public void forEach(Consumer<T> consumer) {
+        LinkedListNode<T> current = this.head;
+
+        while (current != null) {
+            consumer.accept(current.getData());
+            current = current.getNext();
+        }
     }
 
     public void clear() {
