@@ -39,6 +39,22 @@ public class DynamicQueue<T> {
         return data;
     }
 
+    public T get(int i) {
+        LinkedListNode<T> current = head;
+        int index = 0;
+
+        while (current != null) {
+            if (index == i) {
+                return current.getData();
+            }
+
+            current = current.getNext();
+            index++;
+        }
+
+        return null;
+    }
+
     public boolean isEmpty() {
         return head == null;
     }
