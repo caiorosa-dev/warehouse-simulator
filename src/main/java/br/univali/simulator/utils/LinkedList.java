@@ -2,6 +2,9 @@ package br.univali.simulator.utils;
 
 import br.univali.simulator.utils.list.LinkedListNode;
 
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
 public class LinkedList<T> {
     private LinkedListNode<T> head;
 
@@ -85,6 +88,34 @@ public class LinkedList<T> {
         }
 
         return size;
+    }
+
+    public void removeIf(Predicate<T> predicate) {
+        LinkedListNode<T> current = this.head;
+        LinkedListNode<T> previous = null;
+
+        while (current != null) {
+            if (predicate.test(current.getData())) {
+                if (previous == null) {
+                    this.head = current.getNext();
+                } else {
+                    previous.setNext(current.getNext());
+                }
+            } else {
+                previous = current;
+            }
+
+            current = current.getNext();
+        }
+    }
+
+    public void forEach(Consumer<T> consumer) {
+        LinkedListNode<T> current = this.head;
+
+        while (current != null) {
+            consumer.accept(current.getData());
+            current = current.getNext();
+        }
     }
 
     public void clear() {
