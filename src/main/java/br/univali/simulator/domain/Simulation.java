@@ -4,9 +4,13 @@ import br.univali.simulator.domain.entities.Warehouse;
 import br.univali.simulator.domain.simulation.SimulationConfig;
 import br.univali.simulator.domain.simulation.SimulationLog;
 import br.univali.simulator.utils.LinkedList;
+import lombok.Getter;
 
 public class Simulation {
+    @Getter
     private final SimulationConfig config;
+
+    @Getter
     private final LinkedList<SimulationLog> logs;
     private final Warehouse warehouse;
 
