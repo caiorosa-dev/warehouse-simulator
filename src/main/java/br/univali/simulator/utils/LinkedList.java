@@ -5,7 +5,7 @@ import br.univali.simulator.utils.list.LinkedListNode;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class LinkedList<T> {
+public class LinkedList<T> implements LinkedListContract<T> {
     private LinkedListNode<T> head;
 
     public LinkedList() {
