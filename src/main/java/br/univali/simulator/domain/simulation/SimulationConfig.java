@@ -23,4 +23,6 @@ public class SimulationConfig {
 
     private int startHourOfDay = 8;
     private int endHourOfDay = 20;
+
+    private boolean runWithPauses = false;
 }
