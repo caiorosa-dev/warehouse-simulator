@@ -2,7 +2,9 @@ package br.univali.simulator.utils;
 
 import br.univali.simulator.utils.list.LinkedListNode;
 
-public class DynamicQueue<T> {
+import java.util.function.Consumer;
+
+public class DynamicQueue<T> implements LinkedListContract<T> {
     private LinkedListNode<T> head;
     private LinkedListNode<T> tail;
 
@@ -37,6 +39,42 @@ public class DynamicQueue<T> {
         }
 
         return data;
+    }
+
+    @Override
+    public boolean contains(T data) {
+        LinkedListNode<T> current = head;
+
+        while (current != null) {
+            if (current.getData().equals(data)) {
+                return true;
+            }
+
+            current = current.getNext();
+        }
+
+        return false;
+    }
+
+    public T get(int i) {
+        LinkedListNode<T> current = head;
+        int index = 0;
+
+        while (current != null) {
+            if (index == i) {
+                return current.getData();
+            }
+
+            current = current.getNext();
+            index++;
+        }
+
+        return null;
+    }
+
+    @Override
+    public void forEach(Consumer<T> consumer) {
+
     }
 
     public boolean isEmpty() {

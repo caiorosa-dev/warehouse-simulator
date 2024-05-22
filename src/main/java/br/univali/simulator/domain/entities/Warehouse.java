@@ -23,6 +23,10 @@ public class Warehouse {
 			totalWeight += storages.get(i).getTotalWeight();
 		}
 
+		for (int i = 0; i < suppliesOnHold.size(); i++) {
+			totalWeight += suppliesOnHold.get(i).getWeight();
+		}
+
 		return totalWeight;
 	}
 
@@ -91,6 +95,7 @@ public class Warehouse {
 
 		this.moveSuppliesOnHoldToStorages();
 		System.out.println("Received " + amount + " supplies.");
+		System.out.println("Total weight of supplies in warehouse: " + this.getTotalWeight());
 	}
 
 	public void loadTruck() {
